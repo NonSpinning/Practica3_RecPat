@@ -21,16 +21,19 @@ Plan estructura de archivos:
 
 ## POR HACER
 ### Parte 1
-- [ ] Generar puntos de forma replicable
-- [ ] Lind-Buzo-Gray con parámetro para tipo de distancia
-    - [ ] Separar itakura-saito
-    - [ ] Optimizar Lind-Buzo-Gray (aleatorio se tardo 30min para 256 regiones)
-    - [ ] Mejorar desplegado de regiones
+- [X] Generar puntos de forma replicable
+- [X] Lind-Buzo-Gray con parámetro para tipo de distancia
+    - [X] Separar itakura-saito
+    - [X] Optimizar Lind-Buzo-Gray (aleatorio se tardo 30min para 256 regiones)
+    - [X] Mejorar desplegado de regiones
     - [ ] Comparar LBG fijo con resultados teóricos presentación (ya son muy similares)
     - [ ] Asegurar que LBG aleatorio no sea mucho más ineficiente
+    - [ ] Matriz de umbral???
 - [ ] Codificar K-Medias
     - [ ] Optimizar K-Medias
+    - [ ] K-Medias ++ 
     - [ ] Comparar con K-Medias con ambos LBG.
+- [ ] Comparar LBG optimizados y no optimizados
 ### Parte 2
 - [ ] Grabar audios
 - [ ] Entrenamiento

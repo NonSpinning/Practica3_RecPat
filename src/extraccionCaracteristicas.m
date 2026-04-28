@@ -6,20 +6,6 @@ classdef extraccionCaracteristicas
         sup {mustBeNumeric}
         ord {mustBeInteger}
     end
-    methods (Static)
-        %Distancia de Itakura-Saito, dada una matriz de vectores de muestras X y una
-        %matriz de vectores fila de modelo Y; regresa una matriz Z(i,j) = dist(X_i,Y_j)
-        function dist = itakuraSaito(X, Y, ord)
-            %uso featExt para calcular la autocorrelación
-            featExt = extraccionCaracteristicas(size(X,2), 0, 0, 0, ord);
-            if size(X,2) ~= size(Y,2)
-                error("Los vectores a comparar deben tener el mismo tamaño")
-            end
-            R_X = featExt.autoCorr(X);
-            Rt_Y = transpose(featExt.autoCorr(Y));
-            dist = 2 .* (R_X * Rt_Y) - (R_X(:,1) * Rt_Y(1,:));
-        end
-    end
     methods
         %Constructor
         function featExt = extraccionCaracteristicas(N, M, inf, sup, ord)
