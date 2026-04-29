@@ -48,6 +48,8 @@ classdef cuantizacionVectorial
         end
 
         %K-Medias, con codebook inicial aleatorio y k-medias++.
+        %El algoritmo para k-medias++ lo saque de los docs de MATLAB
+        %(función kmeans)
         %Entradas:
         % X - Reales[NxM]; Conjunto de N vectores de tamaño M a cuantizar.
         % k - Entero; Número de regiones para la cuantización.
@@ -64,15 +66,34 @@ classdef cuantizacionVectorial
         % su código más cercano.
         function [GAMMA, distGlobal] = KMedias( ...
                 X, k, u, maxIter, tipoDist, masmas)
-            [N, ~] = size(X);
+            [N, M] = size(X);
+            GAMMA = zeros(k,M);
             if masmas
-                error("Implementar");
-            else
+                random = round((N - 1) .* rand(1,1));
+                GAMMA(1,:) = X(random,:);
+                for i = 2:k
+                    %Calcula la distancia al centroide más cercano
+                    [regiones, distGlobal] = cuantizacionVectorial.calcRegiones( ...
+                        X,GAMMA,i-1,tipoDist);
+                    %las distancias calculan todos los pares, y yo solo
+                    %quiero 1-a-1, tengo que iterar.
+
+                    dist = cuantizacionVectorial.calcDistancia( ...
+                        X,GAMMA(regiones,:),tipoDist,"1v1");
+                    %la probabilidad de elegir un vector es su distancia
+                    %normalizada.
+                    dist = dist ./ distGlobal;
+                    %funcion de densidad acumulada
+                    dist = cumsum(dist);
+                    %elige basado en las probabilidades
+                    GAMMA(i,:) = X(find(rand(1,1) < dist,1),:);
+                end
+            else 
+                %elige uniformemente al azar
                 randindx = sort(randperm(N));
                 GAMMA = X(randindx(1:k),:);
             end
-            
-            [GAMMA, distGlobal] = lloyd(...
+            [GAMMA, distGlobal] = cuantizacionVectorial.lloyd(...
                 X,GAMMA,k, u,maxIter,tipoDist);
         end
 
@@ -137,23 +158,8 @@ classdef cuantizacionVectorial
         % cada uno de los vectores
         % distGlobal - Suma Suma de la distancia entre cada vector y 
         % su código más cercano.
-        function [regiones, distGlobal] = calcRegiones(X, GAMMA,k,tipoDist)
-            import itakura_saito.*
-            if tipoDist == "euclideana"
-                %Usando la distancia euclideana al cuadrado:
-                %dist(x_i, gamma_j) = ||x_i - gamma_j||^2
-                %Expandiendo por producto punto:
-                %||x_i - gamma_j||^2 = x_i . x_i - 2(x_i . gamma_j) 
-                % + gamma_j . gamma_j
-                %||x_i||^2 + ||gamma_j||.^2 -2(x_i . gamma_j)
-                sqrNormX = sum(X.^2,2);
-                sqrNormGamma = sum(GAMMA(1:k,:).^2,2);
-                dist = sqrNormX + sqrNormGamma' - 2.*(X * GAMMA(1:k,:)');
-            elseif tipoDist == "itakura-saito"
-                dist = itakura_saito(X,GAMMA(1:k));
-            else
-                error("Tipo de distancia no reconocido");
-            end
+        function [regiones, distGlobal] = calcRegiones(X,GAMMA,k,tipoDist)
+            dist = cuantizacionVectorial.calcDistancia(X,GAMMA(1:k,:),tipoDist);
             [minDist, regiones] = min(dist,[],2);
             distGlobal = sum(minDist,"all");
         end
@@ -177,6 +183,22 @@ classdef cuantizacionVectorial
             GAMMA = zeros(k,vecLength);
             for i = 1:vecLength
                 GAMMA(:,i) = accumarray(regiones, X(:,i), [k 1]) ./ counts;
+            end
+        end
+
+        %Para no tener que estar haciendo if's en todas las funciones que
+        %pueden variar el tipo de distancia.
+        %Calcula la distancia exhaustiva (dist(i,j) = dist(X_i,X_j) de
+        %acuerdo al tipo de distancia tipoDist
+        function dist = calcDistancia(X,Y,tipoDist,varargin)
+            import itakura_saito.*
+            import euclideana.*
+            if tipoDist == "euclideana"
+                dist = euclideana(X,Y,varargin);
+            elseif tipoDist == "itakura-saito"
+                dist = itakura_saito(X,Y,varargin);
+            else
+                error("Tipo de distancia no reconocido.")
             end
         end
 

@@ -26,14 +26,16 @@ Plan estructura de archivos:
     - [X] Separar itakura-saito
     - [X] Optimizar Lind-Buzo-Gray (aleatorio se tardo 30min para 256 regiones)
     - [X] Mejorar desplegado de regiones
-    - [ ] Comparar LBG fijo con resultados teóricos presentación (ya son muy similares)
-    - [ ] Asegurar que LBG aleatorio no sea mucho más ineficiente
-    - [ ] Matriz de umbral???
-- [ ] Codificar K-Medias
-    - [ ] Optimizar K-Medias
-    - [ ] K-Medias ++ 
-    - [ ] Comparar con K-Medias con ambos LBG.
-- [ ] Comparar LBG optimizados y no optimizados
+    - [X] Comparar LBG fijo con resultados teóricos presentación (ya son muy similares)
+    - [X] Asegurar que LBG aleatorio no sea mucho más ineficiente
+- [X] Codificar K-Medias
+    - [X] Optimizar K-Medias
+    - [X] K-Medias ++ 
+    - [X] Comparar con K-Medias con ambos LBG.
+- [ ] Opcionales
+    - [ ] Obtener resultados para todos los cuantizadores x k x tipos de distancia 
+    - [ ] Optimizar cuantizadores con Itakura-Saito
+    - [ ] Comparar viejos resultados con nuevos
 ### Parte 2
 - [ ] Grabar audios
 - [ ] Entrenamiento
