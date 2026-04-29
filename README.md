@@ -21,34 +21,25 @@ Plan estructura de archivos:
 
 ## POR HACER
 ### Parte 1
-- [X] Generar puntos de forma replicable
-- [X] Lind-Buzo-Gray con parámetro para tipo de distancia
-    - [X] Separar itakura-saito
-    - [X] Optimizar Lind-Buzo-Gray (aleatorio se tardo 30min para 256 regiones)
-    - [X] Mejorar desplegado de regiones
-    - [X] Comparar LBG fijo con resultados teóricos presentación (ya son muy similares)
-    - [X] Asegurar que LBG aleatorio no sea mucho más ineficiente
-- [X] Codificar K-Medias
-    - [X] Optimizar K-Medias
-    - [X] K-Medias ++ 
-    - [X] Comparar con K-Medias con ambos LBG.
 - [ ] Opcionales
     - [ ] Obtener resultados para todos los cuantizadores x k x tipos de distancia 
     - [ ] Optimizar cuantizadores con Itakura-Saito
     - [ ] Comparar viejos resultados con nuevos
 ### Parte 2
 - [ ] Grabar audios
-- [ ] Entrenamiento
-    - [ ] Hiperparámetros como parámetros del entrenamiento
-    - [ ] Amplificar audios
-    - [ ] extraccionCaracteristicas
-    - [ ] Cuantizar -> salida = modelo
-- [ ] Inferencia
-    - [ ] Amplificar audios
-    - [ ] extraccionCaracteristicas
-    - [ ] calcular distancias -> predecir mínima
-    - [ ] Output = etiquetas
+- [X] Entrenamiento
+    - [x] Hiperparámetros como parámetros del entrenamiento
+    - [X] Amplificar audios
+    - [X] extraccionCaracteristicas
+    - [X] Cuantizar -> salida = modelo
+- [X] Inferencia
+    - [X] Amplificar audios
+    - [X] extraccionCaracteristicas
+    - [X] calcular distancias -> predecir mínima
+    - [X] Output = etiquetas
 - [ ] Evaluación
     - [ ] Métricas (Precisión, DICE, MCC?)
-    - [ ] Matriz de Confusión
+    - [X] Matriz de Confusión
     - [ ] Iterar sobre hiperparámetros para encontrar mejor
+- [ ] Opcional
+  - [ ] Prueba en vivo
