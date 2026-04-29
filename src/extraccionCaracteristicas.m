@@ -83,7 +83,7 @@ classdef extraccionCaracteristicas
             numBloques = size(bloques,1);
             vec = zeros(numBloques,featExt.ord+1);
                 for i = 1:numBloques
-                    for j = 0:featExt.ord
+                    for j = 0:featExt.ord 
                         vec(i,j+1) = sum(bloques(i,1:(featExt.N-j)) ...
                             .* bloques(i,(j+1):featExt.N));
                     end
